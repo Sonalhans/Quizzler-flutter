@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'question.dart';
 
 void main() {
   runApp(const Quizzler());
@@ -25,7 +26,7 @@ class Quizzler extends StatelessWidget {
 }
 
 class QuizPage extends StatefulWidget {
-
+  const QuizPage({super.key});
 
   @override
   State<QuizPage> createState() => _QuizPageState();
@@ -33,20 +34,28 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Widget> scoreKeeper =[];
-  List<String> questions = [
-    'You can lead a cow downstairs but not upstairs.',
-    'Approximately the quater of human bones are in the feet.',
-    'A Slug\'s blood is green.',
+  // List<String> questions = [
+  //   'You can lead a cow downstairs but not upstairs.',
+  //   'Approximately the quarter of human bones are in the feet.',
+  //   'A Slug\'s blood is green.',
+  // ];
+
+  // List answers = [
+  //   false,
+  //   true,
+  //   true
+  // ];
+
+  List<Question> questionBank = [
+
+    Question(q:'You can lead a cow downstairs but not upstairs.', a:false),
+    Question(q: 'Approximately the quarter of human bones are in the feet.', a: true),
+    Question( q: 'A Slug\'s blood is green.', a: true)
   ];
   int questionNumber = 0;
   void nextQuestion(){
     questionNumber ++;
   }
-  List answers = [
-    false,
-    true,
-    true
-  ];
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -58,7 +67,7 @@ class _QuizPageState extends State<QuizPage> {
           child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: Center(
-              child: Text(questions[questionNumber],
+              child: Text(questionBank[questionNumber].q,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
@@ -73,16 +82,16 @@ class _QuizPageState extends State<QuizPage> {
           child: TextButton(
             style: TextButton.styleFrom(backgroundColor: Colors.green),
             onPressed: () {
-              bool correctAnswer = answers[questionNumber];
+              bool correctAnswer = questionBank[questionNumber].a;
               if(correctAnswer == true){
                 print('you got it right');
               }else{
-                print('You got it worng');
+                print('You got it wrong');
               }
 
               setState(() {
 
-                
+
                 nextQuestion();
               });
 
@@ -119,4 +128,4 @@ class _QuizPageState extends State<QuizPage> {
 }
 //You can lead a cow downstairs but not upstairs
 //A Slug\'s blood is green
-//Approximately ne quater of human bones are in the feet
+//Approximately ne quarter of human bones are in the feet
